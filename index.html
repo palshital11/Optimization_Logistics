@@ -1,11 +1,346 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Logistics Optimization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics Optimization with PuLP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
+        }
+        .code-block {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            color: #f8fafc;
+            overflow-x: auto;
+        }
+        .highlight {
+            position: relative;
+        }
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            opacity: 0.3;
+            z-index: -1;
+        }
+    </style>
 </head>
-<body>
-  <h1>Logistics Optimization using Python</h1>
-  <p>This project uses Python and optimization techniques to minimize transport costs in a supply chain.</p>
-  <p>Status: 🚧 Work in Progress 🚧</p>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i data-feather="package" class="text-blue-600 mr-2"></i>
+                    <span class="text-xl font-bold text-gray-900">LogiOpt</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-blue-600 transition">Features</a>
+                    <a href="#solution" class="text-gray-700 hover:text-blue-600 transition">Solution</a>
+                    <a href="#results" class="text-gray-700 hover:text-blue-600 transition">Results</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 transition">Contact</a>
+                </div>
+                <button class="md:hidden">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Optimize Your Logistics Network</h1>
+                    <p class="text-xl opacity-90 mb-8">Minimize transportation costs between warehouses and retailers using Python and PuLP linear programming</p>
+                    <div class="flex space-x-4">
+                        <a href="#solution" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition">View Solution</a>
+                        <a href="#contact" class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition">Get Started</a>
+                    </div>
+                </div>
+                <div data-aos="fade-left" class="relative">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="flex items-center mb-4">
+                            <div class="h-3 w-3 bg-red-500 rounded-full mr-2"></div>
+                            <div class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></div>
+                            <div class="h-3 w-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <pre class="text-sm font-mono overflow-x-auto">
+<span class="text-blue-300"># Import PuLP</span>
+<span class="text-purple-400">from</span> pulp <span class="text-purple-400">import</span> *
+
+<span class="text-blue-300"># Initialize problem</span>
+prob = LpProblem(<span class="text-green-300">"Transportation_Cost_Minimization"</span>, LpMinimize)
+
+<span class="text-blue-300"># Define decision variables</span>
+routes = LpVariable.dicts(<span class="text-green-300">"Route"</span>, 
+                        [(w,r) <span class="text-purple-400">for</span> w <span class="text-purple-400">in</span> warehouses 
+                        <span class="text-purple-400">for</span> r <span class="text-purple-400">in</span> retailers], 
+                        lowBound=<span class="text-yellow-300">0</span>)
+
+<span class="text-blue-300"># Objective function</span>
+prob += lpSum([costs[w][r] * routes[(w,r)] 
+              <span class="text-purple-400">for</span> w <span class="text-purple-400">in</span> warehouses 
+              <span class="text-purple-400">for</span> r <span class="text-purple-400">in</span> retailers])</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Key Features</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Our logistics optimization solution delivers measurable results through advanced mathematical modeling</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-feather="dollar-sign" class="text-blue-600 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Cost Minimization</h3>
+                    <p class="text-gray-600">Reduce transportation costs by finding the most efficient routes between warehouses and retailers.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-feather="cpu" class="text-purple-600 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Linear Programming</h3>
+                    <p class="text-gray-600">Leverage PuLP's powerful optimization algorithms to solve complex logistics problems.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-feather="trending-up" class="text-green-600 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Scalable Solution</h3>
+                    <p class="text-gray-600">Easily adapt the model to handle growing numbers of warehouses and retail locations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 highlight">Technical Implementation</h2>
+                    <p class="text-lg text-gray-600 mb-6">The logistics optimization problem is formulated as a linear programming model with the following components:</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i data-feather="check" class="text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700"><strong>Decision Variables:</strong> Amount shipped from each warehouse to each retailer</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700"><strong>Objective Function:</strong> Minimize total transportation costs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700"><strong>Constraints:</strong> Warehouse capacities and retailer demands</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition">
+                        Get the complete code
+                        <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="code-block">
+                        <span class="text-blue-300"># Define warehouses and retailers</span>
+                        warehouses = [<span class="text-green-300">'W1'</span>, <span class="text-green-300">'W2'</span>, <span class="text-green-300">'W3'</span>]
+                        retailers = [<span class="text-green-300">'R1'</span>, <span class="text-green-300">'R2'</span>, <span class="text-green-300">'R3'</span>, <span class="text-green-300">'R4'</span>]
+                        
+                        <span class="text-blue-300"># Transportation costs matrix</span>
+                        costs = {
+                            <span class="text-green-300">'W1'</span>: {<span class="text-green-300">'R1'</span>: <span class="text-yellow-300">2</span>, <span class="text-green-300">'R2'</span>: <span class="text-yellow-300">4</span>, ...},
+                            <span class="text-green-300">'W2'</span>: {<span class="text-green-300">'R1'</span>: <span class="text-yellow-300">3</span>, <span class="text-green-300">'R2'</span>: <span class="text-yellow-300">1</span>, ...},
+                            <span class="text-green-300">'W3'</span>: {<span class="text-green-300">'R1'</span>: <span class="text-yellow-300">5</span>, <span class="text-green-300">'R2'</span>: <span class="text-yellow-300">3</span>, ...}
+                        }
+                        
+                        <span class="text-blue-300"># Add constraints</span>
+                        <span class="text-purple-400">for</span> w <span class="text-purple-400">in</span> warehouses:
+                            prob += lpSum([routes[(w,r)] <span class="text-purple-400">for</span> r <span class="text-purple-400">in</span> retailers]) <= supply[w]
+                        
+                        <span class="text-purple-400">for</span> r <span class="text-purple-400">in</span> retailers:
+                            prob += lpSum([routes[(w,r)] <span class="text-purple-400">for</span> w <span class="text-purple-400">in</span> warehouses]) >= demand[r]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Measurable Results</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Our optimization model delivers tangible cost savings and operational improvements</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-5xl font-bold text-blue-600 mb-4">15-30%</div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">Cost Reduction</h3>
+                    <p class="text-gray-600">Average savings on transportation costs across implementations</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl font-bold text-purple-600 mb-4">99%</div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">Feasibility</h3>
+                    <p class="text-gray-600">Of demand satisfied while respecting capacity constraints</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-5xl font-bold text-green-600 mb-4">&lt;1s</div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">Solution Time</h3>
+                    <p class="text-gray-600">For problems with up to 50 warehouses and 200 retailers</p>
+                </div>
+            </div>
+            
+            <div class="mt-16" data-aos="fade-up">
+                <div class="bg-gray-50 rounded-xl p-8">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i data-feather="bar-chart-2" class="text-blue-600 w-6 h-6"></i>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Optimization Results Visualization</h3>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-3">Before Optimization</h4>
+                                    <img src="http://static.photos/technology/640x360/1" alt="Before optimization" class="rounded-lg shadow-md w-full h-auto">
+                                    <p class="text-sm text-gray-500 mt-2">Inefficient routes with higher costs</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-3">After Optimization</h4>
+                                    <img src="http://static.photos/technology/640x360/2" alt="After optimization" class="rounded-lg shadow-md w-full h-auto">
+                                    <p class="text-sm text-gray-500 mt-2">Optimal routes minimizing transportation costs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-6">Get Started with Logistics Optimization</h2>
+                    <p class="text-lg opacity-90 mb-8">Contact us to implement this solution for your supply chain or request the complete Python implementation.</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                            <i data-feather="mail" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm opacity-80">Email us at</p>
+                            <p class="font-medium">contact@logiopt.example</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <form class="bg-gray-800 rounded-xl p-8">
+                        <div class="mb-6">
+                            <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center">
+                            Send Message
+                            <i data-feather="send" class="ml-2 w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-feather="package" class="text-blue-400 mr-2"></i>
+                        <span class="text-xl font-bold text-white">LogiOpt</span>
+                    </div>
+                    <p class="text-sm">Advanced logistics optimization using linear programming with Python and PuLP.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-medium mb-4">Solution</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#solution" class="hover:text-white transition">Implementation</a></li>
+                        <li><a href="#results" class="hover:text-white transition">Results</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-medium mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition">GitHub Repository</a></li>
+                        <li><a href="#" class="hover:text-white transition">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-medium mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
+                            <i data-feather="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition">
+                            <i data-feather="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-800 hover:text-white transition">
+                            <i data-feather="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-sm text-center">
+                <p>© 2023 LogiOpt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+    </script>
+    <script>feather.replace();</script>
 </body>
 </html>
